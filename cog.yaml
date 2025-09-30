@@ -1,12 +1,12 @@
-# cog.yaml
 build:
   gpu: true
   python_version: "3.11"
   python_packages:
-    - "torch==2.1.0"
-    - "transformers==4.35.2"
-    - "Pillow==10.1.0"
-    - "accelerate==0.25.0"
-    - "bitsandbytes==0.41.2"
-    - "scipy"
+    - "accelerate==1.6.0"
+    - "pillow==11.2.1"
+    - "torch==2.7.0"
+    - "torchaudio==2.7.0"
+    - "transformers==4.51.3"
+    - "triton==3.3.0"
+    - "sentencepiece"
 predict: "predict.py:Predictor"

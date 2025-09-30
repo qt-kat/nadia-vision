@@ -9,12 +9,12 @@ class Predictor(BasePredictor):
         print("Iniciando setup: cargando el modelo...")
         model_id = "fancyfeast/llama-joycaption-beta-one-hf-llava"
 
-        # Usar string "bfloat16" como en el ejemplo oficial
         self.processor = AutoProcessor.from_pretrained(model_id)
         self.model = LlavaForConditionalGeneration.from_pretrained(
             model_id,
-            torch_dtype="bfloat16",
-            device_map=0
+            torch_dtype=torch.bfloat16,
+            device_map="auto",
+            low_cpu_mem_usage=True
         )
         self.model.eval()
         print("Setup completado.")
@@ -67,7 +67,7 @@ class Predictor(BasePredictor):
                 text=[convo_string],
                 images=[raw_image],
                 return_tensors="pt"
-            ).to('cuda')
+            ).to(self.model.device)
 
             inputs['pixel_values'] = inputs['pixel_values'].to(torch.bfloat16)
 

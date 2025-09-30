@@ -26,8 +26,10 @@ jobs:
           sudo curl -o /usr/local/bin/cog -L https://github.com/replicate/cog/releases/latest/download/cog_linux_x86_64
           sudo chmod +x /usr/local/bin/cog
 
-      - name: Push to Replicate
-        env:
-          REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
+      - name: Login to Replicate
         run: |
-          cog push r8_qt-kat/nadia-vision
+          echo "${{ secrets.REPLICATE_CLI_TOKEN }}" | cog login --token-stdin
+
+      - name: Push to Replicate
+        run: |
+          cog push r8.im/qt-kat/nadia-vision
